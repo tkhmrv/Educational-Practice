@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E8CC460D-9F6C-49ED-9B4B-2A5D1CF442A0}</ProjectGuid>
+    <ProjectGuid>{250CA671-1114-4C19-A5BA-BD0EE511F5E0}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Tasks_1_5</RootNamespace>
-    <AssemblyName>Tasks 1-5</AssemblyName>
+    <RootNamespace>test</RootNamespace>
+    <AssemblyName>test</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,15 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bishop.cs" />
-    <Compile Include="Chessboard.cs" />
-    <Compile Include="King.cs" />
-    <Compile Include="Knight.cs" />
-    <Compile Include="Queen.cs" />
-    <Compile Include="Coordinates.cs" />
-    <Compile Include="Fields.cs" />
-    <Compile Include="Rook.cs" />
-    <Compile Include="MainClass.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

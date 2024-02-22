@@ -16,7 +16,15 @@ namespace Tasks_1_5
 
             while (true)
             {
-                Console.Write($"Введите координаты фигуры {FigureName} x1y1 и координаты цели x2y2: ");
+                if (FigureName == "поля")
+                {
+                    Console.Write($"Введите координаты первого поля x1y1 и координаты второго поля x2y2: ");
+                }
+                else
+                {
+                    Console.Write($"Введите координаты фигуры {FigureName} x1y1 и координаты цели x2y2: ");
+                }
+
                 string input = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(input))
@@ -52,6 +60,5 @@ namespace Tasks_1_5
         {
             return x >= 'a' && x <= 'h' && y >= '1' && y <= '8';
         }
-
     }
 }
