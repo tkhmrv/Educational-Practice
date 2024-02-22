@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tasks_1_5
+namespace Chess
 {
     internal class Knight
     {
