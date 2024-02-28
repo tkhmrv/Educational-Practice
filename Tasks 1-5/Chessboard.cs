@@ -6,30 +6,41 @@ namespace Chess
     {
         internal static void DrawChessboard(Coordinates coordinates)
         {
-            char[,] board = new char[8, 8];
-
-            for (int i = 0; i < 8; i++)
+            Console.WriteLine("   a b c d e f g h");
+            for (int i = 8; i >= 1; i--)
             {
-                for (int j = 0; j < 8; j++)
+                Console.Write($" {i} ");
+                for (int j = 1; j <= 8; j++)
                 {
-                    board[i, j] = (i + j) % 2 == 0 ? '█' : ' ';
-                }
-            }
-
-            board[8 - (coordinates.FigureY - '0'), coordinates.FigureX - 'a'] = 'F';
-            board[8 - (coordinates.TargetY - '0'), coordinates.TargetX - 'a'] = 'T';
-
-            for (int i = 0; i < 8; i++)
-            {
-                Console.Write(8 - i + " ");
-                for (int j = 0; j < 8; j++)
-                {
-                    Console.Write(board[i, j] + " ");
+                    if ((i + j) % 2 == 0)
+                    {
+                        Console.BackgroundColor = ConsoleColor.DarkGray;
+                    }
+                    else
+                    {
+                        Console.ResetColor();
+                    }
+                    if ((char)(j + 96) == coordinates.FigureX && i == (int)Char.GetNumericValue(coordinates.FigureY))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green; // Цвет первой фигуры
+                        Console.Write("F ");
+                    }
+                    else if ((char)(j + 96) == coordinates.TargetX && i == (int)Char.GetNumericValue(coordinates.TargetY))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red; // Цвет второй фигуры
+                        Console.Write("T ");
+                    }
+                    else
+                    {
+                        Console.Write("  ");
+                    }
+                    Console.ResetColor();
                 }
                 Console.WriteLine();
             }
-
-            Console.WriteLine("  a b c d e f g h\n");
+            Console.WriteLine();
         }
+
     }
 }
+
