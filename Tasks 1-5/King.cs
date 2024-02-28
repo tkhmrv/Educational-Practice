@@ -6,7 +6,7 @@ namespace Chess
     {
         internal static void KingLogic(Coordinates coordinates)
         {
-            if (CanKingAttack(coordinates.FigureX, coordinates.FigureY, coordinates.TargetX, coordinates.TargetY))
+            if (CanKingAttack(coordinates.PieceX, coordinates.PieceY, coordinates.TargetX, coordinates.TargetY))
             {
                 Console.WriteLine("Король сможет побить фигуру\n");
             }

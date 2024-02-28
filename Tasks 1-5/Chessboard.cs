@@ -20,15 +20,20 @@ namespace Chess
                     {
                         Console.ResetColor();
                     }
-                    if ((char)(j + 96) == coordinates.FigureX && i == (int)Char.GetNumericValue(coordinates.FigureY))
+                    if ((char)(j + 96) == coordinates.PieceX && i == (int)Char.GetNumericValue(coordinates.PieceY))
                     {
                         Console.ForegroundColor = ConsoleColor.Green; // Цвет первой фигуры
-                        Console.Write("F ");
+                        Console.Write("Ф ");
                     }
                     else if ((char)(j + 96) == coordinates.TargetX && i == (int)Char.GetNumericValue(coordinates.TargetY))
                     {
                         Console.ForegroundColor = ConsoleColor.Red; // Цвет второй фигуры
-                        Console.Write("T ");
+                        Console.Write("Ц ");
+                    }
+                    else if ((char)(j + 96) == coordinates.MoveX && i == (int)Char.GetNumericValue(coordinates.MoveY))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow; // Цвет точки
+                        Console.Write("* ");
                     }
                     else
                     {
@@ -41,6 +46,41 @@ namespace Chess
             Console.WriteLine();
         }
 
+        internal static void DrawChessboardRandom(Coordinates coordinates)
+        {
+            Console.WriteLine("   a b c d e f g h");
+
+            for (int i = 8; i >= 1; i--)
+            {
+                Console.Write($" {i} ");
+                for (int j = 1; j <= 8; j++)
+                {
+                    if ((i + j) % 2 == 0)
+                        Console.BackgroundColor = ConsoleColor.DarkGray;
+                    else
+                        Console.ResetColor();
+
+                    if (i == coordinates.PieceY - '0' && j == coordinates.PieceX - 'a' + 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("1" + coordinates.FirstPiece.Substring(0, 1).ToUpper());
+                    }
+                    else if (i == coordinates.TargetY - '0' && j == coordinates.TargetX - 'a' + 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("2" + coordinates.SecondPiece.Substring(0, 1).ToUpper());
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("  ");
+                        Console.ResetColor();
+                    }
+                }
+                Console.WriteLine();
+                Console.ResetColor();
+            }
+            Console.WriteLine();
+        }
     }
 }
-

@@ -6,7 +6,7 @@ namespace Chess
     {
         internal static void RookLogic(Coordinates coordinates)
         {
-            if (coordinates.FigureX == coordinates.TargetX || coordinates.FigureY == coordinates.TargetY)
+            if (coordinates.PieceX == coordinates.TargetX || coordinates.PieceY == coordinates.TargetY)
             {
                 Console.WriteLine("Ладья сможет побить фигуру\n");
             }

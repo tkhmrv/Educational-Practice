@@ -6,7 +6,7 @@ namespace Chess
     {
         internal static void BishopLogic(Coordinates coordinates)
         {
-            if (Math.Abs(coordinates.FigureX - coordinates.TargetX) == Math.Abs(coordinates.FigureY - coordinates.TargetY))
+            if (Math.Abs(coordinates.PieceX - coordinates.TargetX) == Math.Abs(coordinates.PieceY - coordinates.TargetY))
             {
                 Console.WriteLine("Слон сможет побить фигуру\n");
             }

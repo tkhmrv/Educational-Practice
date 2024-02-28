@@ -6,7 +6,7 @@ namespace Chess
     {
         internal static void QueenLogic(Coordinates coordinates)
         {
-            if (IsQueenAbleToHitTarget(coordinates.FigureX, coordinates.FigureY, coordinates.TargetX, coordinates.TargetY))
+            if (IsQueenAbleToHitTarget(coordinates.PieceX, coordinates.PieceY, coordinates.TargetX, coordinates.TargetY))
             {
                 Console.WriteLine("Ферзь сможет побить фигуру\n");
             }

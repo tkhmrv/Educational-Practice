@@ -6,7 +6,7 @@ namespace Chess
     {
         internal static void KnightLogic(Coordinates coordinates)
         {
-            if (CanKnightAttack(coordinates.FigureX, coordinates.FigureY, coordinates.TargetX, coordinates.TargetY))
+            if (CanKnightAttack(coordinates.PieceX, coordinates.PieceY, coordinates.TargetX, coordinates.TargetY))
             {
                 Console.WriteLine("Конь сможет побить фигуру\n");
             }
