@@ -2,25 +2,27 @@
 
 namespace Exercise_6
 {
+    // Класс GameManager отвечает за управление игровым процессом
     class GameManager
     {
-        private Player player;
-        private Enemy enemy;
-        private SpellHandler spellHandler; // Поле для хранения экземпляра SpellHandler
-        private int hpPlayer;
+        private Player player; // Игрок
+        private Enemy enemy; // Противник
+        private SpellHandler spellHandler; // Обработчик заклинаний
+        private int hpPlayer; // Здоровье игрока
 
+        // Метод Start - инициализация игры и управление ею
         public void Start()
         {
-            Introduction();
-            Initialize();
+            Introduction(); // Выводит вступительное сообщение
+            InitializeGame(); // Инициализация игры
 
             try
             {
                 while (true)
                 {
-                    ChooseSpell();
-                    HandleSpell();
-                    if (CheckEndGame())
+                    ChooseSpell(); // Выбор заклинания
+                    HandleSpell(); // Обработка выбранного заклинания
+                    if (CheckEndGame()) // Проверка завершения игры
                         return;
                 }
             }
@@ -30,6 +32,7 @@ namespace Exercise_6
             }
         }
 
+        // Метод Introduction выводит вступительное сообщение и описание заклинаний
         private void Introduction()
         {
             Console.WriteLine("Добро пожаловать, темный маг! Ваша миссия - победить босса и принести мир и покой в наш мир!");
@@ -55,22 +58,24 @@ namespace Exercise_6
                 "\r\n\t Можно использовать один раз за бой\n");
         }
 
-        private void Initialize()
+        // Метод Initialize инициализирует игру, задавая начальные параметры игрока и противника
+        private void InitializeGame()
         {
             Random random = new Random();
-            hpPlayer = random.Next(500, 2001);
-            int hpEnemy = random.Next(hpPlayer, (int)(hpPlayer * 1.5));
+            hpPlayer = random.Next(500, 2001); // Генерация случайного здоровья игрока
+            int hpEnemy = random.Next(hpPlayer, (int)(hpPlayer * 1.5)); // Генерация случайного здоровья противника
 
-            player = new Player(hpPlayer);
-            enemy = new Enemy(hpEnemy);
+            player = new Player(hpPlayer); // Создание объекта игрока
+            enemy = new Enemy(hpEnemy); // Создание объекта противника
 
-            spellHandler = new SpellHandler(player, enemy, false, false, 0, 0, 0, false); // Создание экземпляра SpellHandler
+            spellHandler = new SpellHandler(player, enemy, false, false, 0, 0, 0, false); // Создание объекта обработчика заклинаний
 
-            Console.WriteLine($"Здоровье босса - {hpEnemy} хп");
-            Console.WriteLine($"Ваше здоровье - {hpPlayer} хп");
+            Console.WriteLine($"Здоровье босса - {hpEnemy} хп"); // Вывод здоровья противника
+            Console.WriteLine($"Ваше здоровье - {hpPlayer} хп"); // Вывод здоровья игрока
             Console.WriteLine();
         }
 
+        // Метод ChooseSpell выводит сообщение о выборе заклинания
         private void ChooseSpell()
         {
             Console.WriteLine("Выберите заклинание из арсенала:" + Environment.NewLine +
@@ -83,12 +88,14 @@ namespace Exercise_6
             Console.Write("Ваш выбор: ");
         }
 
+        // Метод HandleSpell обрабатывает выбранное заклинание
         private void HandleSpell()
         {
             string spell = Console.ReadLine();
-            spellHandler.Handle(spell, hpPlayer); // Использование существующего экземпляра SpellHandler
+            spellHandler.Handle(spell, hpPlayer); // Обработка заклинания
         }
 
+        // Метод CheckEndGame проверяет условия завершения игры
         private bool CheckEndGame()
         {
             if (player.IsDead() && enemy.IsDead())

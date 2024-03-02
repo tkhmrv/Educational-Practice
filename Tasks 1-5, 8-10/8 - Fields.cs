@@ -18,6 +18,7 @@ namespace Chess
             }
         }
 
+        // Метод для определения, являются ли поля одного цвета
         static bool IsSameColor(Coordinates coordinates)
         {
             int x1 = coordinates.PieceX - 'a';

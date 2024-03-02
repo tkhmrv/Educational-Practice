@@ -1,30 +1,29 @@
-﻿
-// ПРОБЛЕМА: первая фигура может проходить сквозь вторую
-
-using System;
+﻿using System;
 
 namespace Chess
 {
     internal class Destination
     {
+        // ПРОБЛЕМА: первая фигура может проходить сквозь вторую
+
         internal static void Check(Coordinates coordinates)
         {
 
-            bool WhitePieceCanReach = WhitePiece(coordinates);
+            bool WhitePieceCanReachDot = WhitePiece(coordinates);
             bool BlackPieceCanBeatDot = BlackPiece(coordinates);
 
 
-            if (WhitePieceCanReach && !BlackPieceCanBeatDot)
+            if (WhitePieceCanReachDot && !BlackPieceCanBeatDot)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"Белая фигура {coordinates.FirstPiece} сможет дойти до точки {coordinates.MoveX}{coordinates.MoveY}, не попав при этом под удар черной фигуры\n");
             }
-            else if (WhitePieceCanReach && BlackPieceCanBeatDot)
+            else if (WhitePieceCanReachDot && BlackPieceCanBeatDot)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Белая фигура {coordinates.FirstPiece} сможет дойти до точки {coordinates.MoveX} {coordinates.MoveY}, но будет побита черной фигурой\n");
             }
-            else if (!WhitePieceCanReach && BlackPieceCanBeatDot)
+            else if (!WhitePieceCanReachDot && BlackPieceCanBeatDot)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Белая фигура {coordinates.FirstPiece} не сможет дойти до точки {coordinates.MoveX} {coordinates.MoveY}, но может быть побита черной фигурой\n");
@@ -37,9 +36,11 @@ namespace Chess
 
             Console.ResetColor();
         }
+
+        // Метод для проверки возможности белой фигуры дойти до точки
         internal static bool WhitePiece(Coordinates coordinates)
         {
-            bool WhitePieceCanReachDestination;
+            bool WhitePieceCanReachDot;
             int diffX = Math.Abs(coordinates.MoveX - coordinates.PieceX);
             int diffY = Math.Abs(coordinates.MoveY - coordinates.PieceY);
 
@@ -48,36 +49,37 @@ namespace Chess
             {
                 case "ладья":
                     // Ладья может ходить по горизонтали и вертикали
-                    WhitePieceCanReachDestination = coordinates.PieceX == coordinates.MoveX || coordinates.PieceY == coordinates.MoveY;
+                    WhitePieceCanReachDot = coordinates.PieceX == coordinates.MoveX || coordinates.PieceY == coordinates.MoveY;
                     break;
                 case "конь":
                     // Конь ходит буквой "Г"
-                    WhitePieceCanReachDestination = (diffX == 1 && diffY == 2) || (diffX == 2 && diffY == 1);
+                    WhitePieceCanReachDot = (diffX == 1 && diffY == 2) || (diffX == 2 && diffY == 1);
                     break;
                 case "слон":
                     // Слон ходит по диагонали
-                    WhitePieceCanReachDestination = diffX == diffY;
+                    WhitePieceCanReachDot = diffX == diffY;
                     break;
                 case "ферзь":
                     // Ферзь может ходить по диагоналям и по прямым линиям
-                    WhitePieceCanReachDestination = coordinates.PieceX == coordinates.MoveX || coordinates.PieceY == coordinates.MoveY || diffX == diffY;
+                    WhitePieceCanReachDot = coordinates.PieceX == coordinates.MoveX || coordinates.PieceY == coordinates.MoveY || diffX == diffY;
                     break;
                 case "король":
                     // Король ходит на одну клетку в любом направлении
-                    WhitePieceCanReachDestination = diffX <= 1 && diffY <= 1;
+                    WhitePieceCanReachDot = diffX <= 1 && diffY <= 1;
                     break;
                 default:
                     // Если введена недопустимая фигура, считаем, что она не может дойти до указанной точки
                     Console.WriteLine("Введена недопустимая белая фигура");
-                    WhitePieceCanReachDestination = false;
+                    WhitePieceCanReachDot = false;
                     break;
             }
-            return WhitePieceCanReachDestination;
+            return WhitePieceCanReachDot;
         }
 
+        // Метод для проверки возможности черной фигуры побить белую фигуру на позиции точки
         internal static bool BlackPiece(Coordinates coordinates)
         {
-            bool BlackPieceCanReachDestination;
+            bool BlackPieceCanBeatDot;
             int diffX = Math.Abs(coordinates.MoveX - coordinates.TargetX);
             int diffY = Math.Abs(coordinates.MoveY - coordinates.TargetY);
 
@@ -86,31 +88,31 @@ namespace Chess
             {
                 case "ладья":
                     // Ладья может ходить по горизонтали и вертикали
-                    BlackPieceCanReachDestination = coordinates.TargetX == coordinates.MoveX || coordinates.TargetY == coordinates.MoveY;
+                    BlackPieceCanBeatDot = coordinates.TargetX == coordinates.MoveX || coordinates.TargetY == coordinates.MoveY;
                     break;
                 case "конь":
                     // Конь ходит буквой "Г"
-                    BlackPieceCanReachDestination = (diffX == 1 && diffY == 2) || (diffX == 2 && diffY == 1);
+                    BlackPieceCanBeatDot = (diffX == 1 && diffY == 2) || (diffX == 2 && diffY == 1);
                     break;
                 case "слон":
                     // Слон ходит по диагонали
-                    BlackPieceCanReachDestination = diffX == diffY;
+                    BlackPieceCanBeatDot = diffX == diffY;
                     break;
                 case "ферзь":
                     // Ферзь может ходить по диагоналям и по прямым линиям
-                    BlackPieceCanReachDestination = coordinates.TargetX == coordinates.MoveX || coordinates.TargetY == coordinates.MoveY || diffX == diffY;
+                    BlackPieceCanBeatDot = coordinates.TargetX == coordinates.MoveX || coordinates.TargetY == coordinates.MoveY || diffX == diffY;
                     break;
                 case "король":
                     // Король ходит на одну клетку в любом направлении
-                    BlackPieceCanReachDestination = diffX <= 1 && diffY <= 1;
+                    BlackPieceCanBeatDot = diffX <= 1 && diffY <= 1;
                     break;
                 default:
                     // Если введена недопустимая фигура, считаем, что она не может дойти до указанной точки
                     Console.WriteLine("Введена недопустимая черная фигура");
-                    BlackPieceCanReachDestination = false;
+                    BlackPieceCanBeatDot = false;
                     break;
             }
-            return BlackPieceCanReachDestination;
+            return BlackPieceCanBeatDot;
         }
     }
 }

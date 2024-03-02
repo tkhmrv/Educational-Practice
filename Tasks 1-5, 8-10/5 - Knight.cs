@@ -15,6 +15,7 @@ namespace Chess
                 Console.WriteLine("Конь не сможет побить фигуру\n");
             }
         }
+
         static bool CanKnightAttack(char knightX, char knightY, char targetX, char targetY)
         {
             int dx = Math.Abs(knightX - targetX);

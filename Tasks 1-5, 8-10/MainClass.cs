@@ -8,27 +8,34 @@ namespace Chess
         {
             while (true)
             {
-                Console.Write("Выберите номер задания (1 - Задания 1-5 и 8, 2 - Задание 9, 3 - Задание 10, 0 - выход из программы): ");
+                Console.Write("Выберите номер задания (1 - Задания 1-5 и 8, 2 - Задание 8, 3 - Задание 9, 4 - Задание 10, 0 - выход из программы): ");
                 int TaskChoice;
-                while (!int.TryParse(Console.ReadLine(), out TaskChoice) || TaskChoice < 0 || TaskChoice > 3)
+
+                // Обработка ввода пользователя и проверка на корректность
+                while (!int.TryParse(Console.ReadLine(), out TaskChoice) || TaskChoice < 0 || TaskChoice > 4)
                 {
                     Console.WriteLine("Пожалуйста, введите число от 0 до 3: ");
                 }
 
+                // Обработка выбора пользователя
                 switch (TaskChoice)
                 {
                     case 0:
                         ExitProgram();
                         break;
+
+                    // Tasks 1-5
                     case 1:
                         {
-                            Console.Write("Выберите вариант использования (1 - ладья, 2 - слон, 3 - ферзь, 4 - король, 5 - конь, 6 - цвет поля, 0 - вернуться к заданиям): ");
+                            // Запрос выбора фигуры у пользователя
+                            Console.Write("Выберите вариант использования (1 - ладья, 2 - слон, 3 - ферзь, 4 - король, 5 - конь, 0 - вернуться к заданиям): ");
                             int choice;
-                            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > 6)
+                            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > 5)
                             {
-                                Console.WriteLine("Пожалуйста, введите число от 0 до 6: ");
+                                Console.WriteLine("Пожалуйста, введите число от 0 до 5: ");
                             }
 
+                            // Обработка выбора фигуры
                             switch (choice)
                             {
                                 case 0:
@@ -58,20 +65,26 @@ namespace Chess
                                     Knight.KnightLogic(KnightCoordinates);
                                     Chessboard.DrawChessboard(KnightCoordinates);
                                     break;
-                                case 6:
-                                    Coordinates FieldCoordinates = Coordinates.CoordinatesBasic("поля");
-                                    Fields.FieldsLogic(FieldCoordinates);
-                                    Chessboard.DrawChessboard(FieldCoordinates);
-                                    break;
                             }
                             break;
                         }
+
+                    // Task 8
                     case 2:
+                        Coordinates FieldCoordinates = Coordinates.CoordinatesBasic("поля");
+                        Fields.FieldsLogic(FieldCoordinates);
+                        Chessboard.DrawChessboard(FieldCoordinates);
+                        break;
+
+                    // Task 9
+                    case 3:
                         Coordinates DestinationReachData = Coordinates.CoordinatesAdvanced();
                         Destination.Check(DestinationReachData);
                         Chessboard.DrawChessboard(DestinationReachData);
                         break;
-                    case 3:
+
+                    // Task 10
+                    case 4:
                         Coordinates RandomCoordinates = Coordinates.CoordinatesRandom();
                         Randomizer.RandomLogic(RandomCoordinates);
                         Chessboard.DrawChessboardRandom(RandomCoordinates);
@@ -80,6 +93,7 @@ namespace Chess
             }
         }
 
+        // Метод для завершения программы
         internal static void ExitProgram()
         {
             Console.WriteLine("Нажмите любую клавишу для выхода...");

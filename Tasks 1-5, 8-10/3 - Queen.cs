@@ -15,6 +15,7 @@ namespace Chess
                 Console.WriteLine("Ферзь не сможет побить фигуру\n");
             }
         }
+
         static bool IsQueenAbleToHitTarget(char queenX, char queenY, char tagretX, char targetY)
         {
             return queenX == tagretX || queenY == targetY || Math.Abs(queenX - tagretX) == Math.Abs(queenY - targetY);

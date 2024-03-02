@@ -4,15 +4,16 @@ namespace Exercise_6
 {
     class SpellHandler
     {
-        private readonly Player player;
-        private readonly Enemy enemy;
-        private bool isFadeSpiritExist;
-        private bool isImmortal;
-        private int durationHukanzacura;
-        private int durationMirrorReflection;
-        private int durationTimeSphere;
-        private bool timeSphereUsed;
+        private readonly Player player; // Игрок
+        private readonly Enemy enemy; // Противник
+        private bool isFadeSpiritExist; // Существует ли призванный теневой дух
+        private bool isImmortal; // Бессмертен ли игрок
+        private int durationHukanzacura; // Длительность Хуганзакуры
+        private int durationMirrorReflection; // Длительность Зеркального отражения
+        private int durationTimeSphere; // Длительность Сферы временного замедления
+        private bool timeSphereUsed; // Использовалась ли Сфера временного замедления
 
+        // Конструктор класса
         public SpellHandler(Player player, Enemy enemy, bool isFadeSpiritExist, bool isImmortal,
             int durationHukanzacura, int durationMirrorReflection, int durationTimeSphere, bool timeSphereUsed)
         {
@@ -26,22 +27,23 @@ namespace Exercise_6
             this.timeSphereUsed = timeSphereUsed;
         }
 
+        // Метод для обработки заклинания
         public void Handle(string spell, int hpPlayer)
         {
             Random random = new Random();
-            int receivedDamage = 0;
-            int dealtDamage = 0;
+            int receivedDamage = 0; // Полученный урон
+            int dealtDamage = 0; // Нанесенный урон
 
             switch (spell)
             {
-                case "1":
+                case "1": // Первое заклинание
                     isFadeSpiritExist = true;
 
                     dealtDamage += random.Next(100, 401);
                     receivedDamage += random.Next(200, 701) + 100;
                     break;
 
-                case "2":
+                case "2": // Второе заклинание
                     if (isFadeSpiritExist)
                     {
                         durationHukanzacura += 2;
@@ -55,7 +57,7 @@ namespace Exercise_6
                     }
                     break;
 
-                case "3":
+                case "3": // Третье заклинание
                     if (player.Health <= 0)
                     {
                         Console.WriteLine("Вы мертвы и не можете использовать это заклинание." + Environment.NewLine);
@@ -68,13 +70,13 @@ namespace Exercise_6
                     }
                     else
                     {
-                        player.Heal(hpPlayer);
+                        player.Heal(hpPlayer); // Исцеляем игрока
                         isImmortal = true;
                         Console.WriteLine($"Вы чувствуете прилив сил.");
                     }
                     break;
 
-                case "4":
+                case "4": // Четвертое заклинание
                     if (durationMirrorReflection > -2)
                     {
                         durationMirrorReflection--;
@@ -90,7 +92,7 @@ namespace Exercise_6
                     }
                     break;
 
-                case "5":
+                case "5": // Пятое заклинание
                     if (timeSphereUsed)
                     {
                         Console.WriteLine("Сфера временного замедления уже была использована и больше недоступна." + Environment.NewLine);
@@ -105,20 +107,20 @@ namespace Exercise_6
                     }
                     break;
 
-                default:
+                default: // Если заклинание не опознано
                     Console.WriteLine("Вы не знаете такого заклинания, попробуйте еще раз.");
                     Console.WriteLine();
                     return;
             }
 
-            if (durationHukanzacura != 0)
+            if (durationHukanzacura != 0) // Если активна Хуганзакура
             {
                 durationHukanzacura--;
                 dealtDamage += random.Next(50, 301);
                 Console.WriteLine($"Хуганзакура: осталось {durationHukanzacura} хода(-ов).");
             }
 
-
+            // Если игрок бессмертен, то он не получает урон
             if (isImmortal)
             {
                 receivedDamage = 0;
@@ -126,9 +128,9 @@ namespace Exercise_6
             }
             else
             {
-                player.TakeDamage(receivedDamage);
+                player.TakeDamage(receivedDamage); // Получение урона игроком
             }
-            enemy.TakeDamage(dealtDamage);
+            enemy.TakeDamage(dealtDamage); // Получение урона противником
 
             Console.WriteLine();
             Console.WriteLine($"Нанесено {dealtDamage} единиц урона.");

@@ -43,18 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bishop.cs" />
+    <Compile Include="2 - Bishop.cs" />
     <Compile Include="Chessboard.cs" />
     <Compile Include="Coordinates.cs" />
-    <Compile Include="Destination.cs" />
-    <Compile Include="Fields.cs" />
-    <Compile Include="King.cs" />
-    <Compile Include="Knight.cs" />
+    <Compile Include="9 - Destination.cs" />
+    <Compile Include="8 - Fields.cs" />
+    <Compile Include="4 - King.cs" />
+    <Compile Include="5 - Knight.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queen.cs" />
-    <Compile Include="Randomizer.cs" />
-    <Compile Include="Rook.cs" />
+    <Compile Include="3 - Queen.cs" />
+    <Compile Include="10 - Randomizer.cs" />
+    <Compile Include="1 - Rook.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

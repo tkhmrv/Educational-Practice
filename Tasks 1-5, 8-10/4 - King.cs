@@ -15,6 +15,7 @@ namespace Chess
                 Console.WriteLine("Король не сможет побить фигуру\n");
             }
         }
+
         static bool CanKingAttack(char kingX, char kingY, char targetX, char targetY)
         {
             return Math.Abs(kingX - targetX) <= 1 && Math.Abs(kingY - targetY) <= 1;
