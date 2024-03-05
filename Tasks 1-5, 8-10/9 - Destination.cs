@@ -8,37 +8,40 @@ namespace Chess
 
         internal static void Check(Coordinates coordinates)
         {
+            bool WrongPiece = false;
+            bool WhitePieceCanReachDot = WhitePiece(coordinates, ref WrongPiece);
+            bool BlackPieceCanBeatDot = BlackPiece(coordinates, ref WrongPiece);
 
-            bool WhitePieceCanReachDot = WhitePiece(coordinates);
-            bool BlackPieceCanBeatDot = BlackPiece(coordinates);
 
-
-            if (WhitePieceCanReachDot && !BlackPieceCanBeatDot)
+            if (!WrongPiece)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Белая фигура {coordinates.FirstPiece} сможет дойти до точки {coordinates.MoveX}{coordinates.MoveY}, не попав при этом под удар черной фигуры\n");
-            }
-            else if (WhitePieceCanReachDot && BlackPieceCanBeatDot)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Белая фигура {coordinates.FirstPiece} сможет дойти до точки {coordinates.MoveX} {coordinates.MoveY}, но будет побита черной фигурой\n");
-            }
-            else if (!WhitePieceCanReachDot && BlackPieceCanBeatDot)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Белая фигура {coordinates.FirstPiece} не сможет дойти до точки {coordinates.MoveX} {coordinates.MoveY}, но может быть побита черной фигурой\n");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Белая фигура {coordinates.FirstPiece} не сможет дойти до точки {coordinates.MoveX}   {coordinates.MoveY}, и не будет побита черной фигурой\n");
+                if (WhitePieceCanReachDot && !BlackPieceCanBeatDot)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Белая фигура {coordinates.FirstPiece} сможет дойти до точки {coordinates.MoveX}{coordinates.MoveY}, не попав под удар черной фигуры\n");
+                }
+                else if (WhitePieceCanReachDot && BlackPieceCanBeatDot)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Белая фигура {coordinates.FirstPiece} сможет дойти до точки {coordinates.MoveX} {coordinates.MoveY}, но будет побита черной фигурой\n");
+                }
+                else if (!WhitePieceCanReachDot && BlackPieceCanBeatDot)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Белая фигура {coordinates.FirstPiece} не сможет дойти до точки {coordinates.MoveX} {coordinates.MoveY}, но может быть побита черной фигурой\n");
+                }
+                else if (!WhitePieceCanReachDot && !BlackPieceCanBeatDot)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Белая фигура {coordinates.FirstPiece} не сможет дойти до точки {coordinates.MoveX}   {coordinates.MoveY}, и не будет побита черной фигурой\n");
+                }
             }
 
             Console.ResetColor();
         }
 
         // Метод для проверки возможности белой фигуры дойти до точки
-        internal static bool WhitePiece(Coordinates coordinates)
+        internal static bool WhitePiece(Coordinates coordinates, ref bool IsWrongPiece)
         {
             bool WhitePieceCanReachDot;
             int diffX = Math.Abs(coordinates.MoveX - coordinates.PieceX);
@@ -69,15 +72,18 @@ namespace Chess
                     break;
                 default:
                     // Если введена недопустимая фигура, считаем, что она не может дойти до указанной точки
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Введена недопустимая белая фигура");
+                    Console.ResetColor();
                     WhitePieceCanReachDot = false;
+                    IsWrongPiece = true;
                     break;
             }
             return WhitePieceCanReachDot;
         }
 
         // Метод для проверки возможности черной фигуры побить белую фигуру на позиции точки
-        internal static bool BlackPiece(Coordinates coordinates)
+        internal static bool BlackPiece(Coordinates coordinates, ref bool IsWrongPiece)
         {
             bool BlackPieceCanBeatDot;
             int diffX = Math.Abs(coordinates.MoveX - coordinates.TargetX);
@@ -108,8 +114,11 @@ namespace Chess
                     break;
                 default:
                     // Если введена недопустимая фигура, считаем, что она не может дойти до указанной точки
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Введена недопустимая черная фигура");
+                    Console.ResetColor();
                     BlackPieceCanBeatDot = false;
+                    IsWrongPiece = true;
                     break;
             }
             return BlackPieceCanBeatDot;

@@ -183,7 +183,7 @@ namespace Task_7
         // Установка параметров консоли и вывод инструкций
         static void SetConsole(int length, int height)
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            //Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.SetWindowSize(length, height);
             Console.SetCursorPosition(35, 0);
             Console.WriteLine("Игра - заброшенный музей");
